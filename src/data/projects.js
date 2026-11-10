@@ -63,18 +63,22 @@ export const projects = [
       'A single vector search misses multi-part questions, and a chatbot that answers confidently from weak context is worse than no answer.',
     built: [
       'Ingests PDF, TXT and CSV up to 20 MB with two strategies: 1,000/200-character splits and 10-row CSV batches, stored as 384-dim vectors.',
-      'A 5-stage query pipeline rewrites the question, decomposes it into 4 sub-queries, searches top-4 for each and merges 16 candidates down to 6 chunks.',
+      'A 5-stage query pipeline rewrites the question, decomposes it into up to 4 sub-queries, searches top-4 for each and merges up to 16 candidates down to 6 chunks.',
       'An LLM-as-judge scores groundedness and relevance from 1 to 5 and regenerates any answer scoring 2 or lower.',
-      'Exposes the whole trace in the UI: rewritten query, sub-queries, verdict and the exact chunks used.',
+      'A citation-first workspace: numbered citation chips open the exact passage in a sources panel, and every answer exposes its rewritten query, sub-queries and judge verdict. Light, dark and system themes.',
+      'Swaps in a new document only after all its embeddings succeed, so a failed or timed-out upload never empties the index; scanned PDFs get an OCR hint instead of a generic error.',
     ],
     figures: [
-      { value: '4', label: 'sub-queries per question' },
+      { value: '4', label: 'max sub-queries per question' },
       { value: '16 → 6', label: 'candidates merged into context' },
       { value: '≤ 2', label: 'judge score that forces a rewrite' },
     ],
-    stack: ['React', 'Node.js', 'Express', 'LangChain', 'Qdrant', 'Hugging Face embeddings', 'Groq', 'Gemini'],
+    stack: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'LangChain', 'Qdrant', 'Hugging Face embeddings', 'Groq', 'Gemini'],
     links: { live: 'https://notebook-llm-sigma.vercel.app', source: 'https://github.com/aryen1101/Notebook_LLM' },
-    shot: { src: notebookShot, alt: 'NotebookLLM workspace with document upload panel' },
+    shot: {
+      src: notebookShot,
+      alt: 'NotebookLLM workspace answering a question with a citation, next to a sources panel listing the passages used',
+    },
     pipeline: [
       {
         label: 'On upload',
@@ -82,7 +86,7 @@ export const projects = [
           { title: 'PDF, TXT or CSV', note: 'up to 20 MB' },
           { title: 'Chunk', note: '1,000 / 200 splits · 10-row CSV batches' },
           { title: 'Embed', note: 'bge-small, 384 dimensions' },
-          { title: 'Store in Qdrant' },
+          { title: 'Swap into Qdrant', note: 'old document kept until embedding succeeds' },
         ],
       },
       {
