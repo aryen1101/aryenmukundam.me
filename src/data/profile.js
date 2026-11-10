@@ -13,7 +13,7 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/aryen-mukundam-298b4a315/',
     leetcode: 'https://leetcode.com/u/Aryen1101/',
   },
-  leetcode: { solved: '500+', streakDays: 400, repo: 'https://github.com/aryen1101/Leetcode_Practise' },
+  leetcode: { solved: '650+', streakDays: 500, repo: 'https://github.com/aryen1101/Leetcode_Practise' },
 };
 
 export const navItems = [
