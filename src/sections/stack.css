@@ -1,0 +1,117 @@
+.stack-filter {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.stack-filter button {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--haze);
+  font-size: var(--step--1);
+  font-weight: 550;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.stack-filter button[aria-pressed='true'] {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--on-foil);
+}
+
+@media (hover: hover) {
+  .stack-filter button:hover:not([aria-pressed='true']) {
+    border-color: var(--haze);
+    color: var(--paper);
+  }
+}
+
+.stack-table {
+  position: relative;
+  z-index: 2;
+}
+
+.stack-row {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
+  gap: clamp(16px, 2.4vw, 32px);
+  padding-block: 18px;
+}
+
+.stack-row--head {
+  padding-block: 0 12px;
+  color: var(--haze);
+  font-size: var(--step--1);
+}
+
+.stack-row h3 {
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.stack-col-label {
+  display: none;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skills li {
+  padding: 5px 11px;
+  border-radius: 3px;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  transition: opacity 220ms ease, color 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.skills--used li {
+  border: 1px solid var(--rule);
+  background: var(--ink);
+}
+
+.skills--exploring li {
+  border: 1px dashed var(--dim);
+  color: var(--haze);
+}
+
+/* With a project picked, its skills light in foil and the rest step back. */
+.stack-table.is-focused .skills li {
+  opacity: 0.32;
+}
+
+.stack-table.is-focused .skills li[data-match='true'] {
+  opacity: 1;
+  border-color: var(--foil);
+  border-style: solid;
+  background: var(--foil-soft);
+  color: var(--paper);
+}
+
+@media (max-width: 759px) {
+  .stack-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stack-row--head {
+    display: none;
+  }
+
+  .stack-col-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--haze);
+    font-size: var(--step--1);
+  }
+}

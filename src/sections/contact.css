@@ -1,0 +1,82 @@
+/* The one full field of foil on the page: where the satellite docks. */
+.contact {
+  min-height: 92svh;
+  padding-block: var(--section) clamp(64px, 8vw, 112px);
+  background: var(--foil);
+  color: var(--on-foil);
+}
+
+.contact .section-head {
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+
+.contact-email {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  max-width: 100%;
+  font-size: clamp(1.75rem, 0.6rem + 6.2vw, 7rem);
+  font-weight: 650;
+  font-stretch: 75%;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
+  border-bottom: 3px solid currentColor;
+  transition: opacity 160ms ease;
+}
+
+@media (hover: hover) {
+  .contact-email:hover {
+    opacity: 0.75;
+  }
+}
+
+.contact-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.contact .button {
+  border-color: var(--on-foil);
+  color: var(--on-foil);
+}
+
+.contact .contact-button--solid {
+  background: var(--on-foil);
+  color: var(--foil);
+}
+
+@media (hover: hover) {
+  .contact .button:hover {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--on-foil);
+  }
+}
+
+.contact :focus-visible {
+  outline-color: var(--on-foil);
+}
+
+.contact-status {
+  font-size: var(--step--1);
+}
+
+.contact-links {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin-top: clamp(48px, 7vw, 96px);
+}
+
+.contact ::selection {
+  background: var(--on-foil);
+  color: var(--foil);
+}

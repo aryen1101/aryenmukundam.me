@@ -1,0 +1,63 @@
+.work .section-head {
+  margin-bottom: 0;
+  padding-bottom: clamp(40px, 6vw, 72px);
+}
+
+.recent {
+  margin-top: clamp(96px, 12vw, 176px);
+}
+
+.recent-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+
+.recent-head h3 {
+  font-size: var(--step-3);
+  font-weight: 650;
+  font-stretch: 80%;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.recent-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px clamp(16px, 2.4vw, 32px);
+}
+
+.recent-list a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background: var(--ink-raised);
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.recent-name {
+  font-weight: 550;
+}
+
+.recent-meta {
+  color: var(--haze);
+}
+
+@media (hover: hover) {
+  .recent-list a:hover {
+    color: var(--foil);
+  }
+}
+
+@media (max-width: 759px) {
+  .recent-list {
+    grid-template-columns: 1fr;
+  }
+}

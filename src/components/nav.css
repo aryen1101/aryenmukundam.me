@@ -1,0 +1,148 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  transition: background-color 240ms ease, border-color 240ms ease;
+  border-bottom: 1px solid transparent;
+}
+
+.nav.is-scrolled,
+.nav.is-open {
+  background: rgba(11, 28, 59, 0.92);
+  border-bottom-color: var(--rule);
+  backdrop-filter: blur(10px);
+}
+
+.nav-bar {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-name {
+  font-weight: 650;
+  font-stretch: 85%;
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 32px);
+  font-size: 0.9375rem;
+}
+
+.nav-links a {
+  position: relative;
+  padding-block: 8px;
+  color: var(--haze);
+  transition: color 160ms ease;
+}
+
+.nav-links a[aria-current] {
+  color: var(--paper);
+}
+
+/* The current section is marked with a foil dot, the same mark as a lit waypoint. */
+.nav-links a[aria-current]::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--foil);
+}
+
+@media (hover: hover) {
+  .nav-links a:hover {
+    color: var(--paper);
+  }
+}
+
+.nav-links .nav-resume {
+  padding: 8px 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  color: var(--paper);
+}
+
+@media (hover: hover) {
+  .nav-links .nav-resume:hover {
+    border-color: var(--foil);
+    color: var(--foil);
+  }
+}
+
+/* Flight progress: how far along its route the satellite is. */
+.nav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.nav-progress span {
+  display: block;
+  height: 100%;
+  background: var(--foil);
+  transform-origin: left center;
+  transform: scaleX(var(--flight, 0));
+}
+
+.nav-toggle {
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.nav-panel {
+  border-top: 1px solid var(--rule);
+  background: var(--ink);
+}
+
+.nav-panel nav {
+  display: flex;
+  flex-direction: column;
+  padding-block: 12px 28px;
+}
+
+.nav-panel a {
+  padding-block: 12px;
+  font-size: var(--step-2);
+  font-weight: 550;
+  font-stretch: 85%;
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-panel a[aria-current] {
+  color: var(--foil);
+}
+
+@media (max-width: 979px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: grid;
+  }
+}
+
+@media (min-width: 980px) {
+  .nav-panel {
+    display: none;
+  }
+}

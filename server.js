@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const port = process.env.PORT || 3000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.join(__dirname, 'dist');
-const mimeTypes = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.pdf': 'application/pdf', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon' };
+const mimeTypes = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.pdf': 'application/pdf', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.ico': 'image/x-icon', '.woff': 'font/woff', '.woff2': 'font/woff2' };
 
 const sendJson = (res, status, payload) => {
   res.writeHead(status, { 'Content-Type': 'application/json' });
@@ -37,6 +37,7 @@ const server = http.createServer(async (req, res) => {
   const requestedPath = requestUrl.pathname === '/' ? '/index.html' : requestUrl.pathname;
   const safePath = path.normalize(requestedPath).replace(/^([.][.][\\/])+/, '');
   const filePath = path.join(distPath, safePath);
+  if (!filePath.startsWith(distPath + path.sep)) return sendJson(res, 400, { error: 'Bad path' });
   if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) return serveFile(res, filePath);
   return serveFile(res, path.join(distPath, 'index.html'));
 });

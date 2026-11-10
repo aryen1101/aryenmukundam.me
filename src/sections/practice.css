@@ -1,0 +1,64 @@
+.streak {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.streak-figures {
+  display: grid;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+.streak-figures div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.streak-figures dd {
+  font-size: var(--step-5);
+  font-weight: 650;
+  font-stretch: 75%;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.streak-figures dt {
+  margin-top: 6px;
+  color: var(--haze);
+  font-size: var(--step--1);
+}
+
+.streak-grid {
+  display: grid;
+  grid-template-columns: repeat(25, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.streak-grid i {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--foil);
+}
+
+.streak-chart figcaption {
+  margin-top: 14px;
+  color: var(--haze);
+  font-size: var(--step--1);
+}
+
+@media (max-width: 899px) {
+  .streak {
+    grid-template-columns: 1fr;
+  }
+
+  .streak-figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .streak-grid {
+    gap: 3px;
+  }
+}

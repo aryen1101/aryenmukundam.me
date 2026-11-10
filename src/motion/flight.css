@@ -1,0 +1,119 @@
+/* The flight layer has no z-index of its own, so the satellite and the route
+   share <main>'s stacking context with the hero name and can pass behind it. */
+.flight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Never let the route or satellite extend the page; sideways overflow stays visible. */
+  overflow-x: visible;
+  overflow-y: clip;
+}
+
+.flight-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: visible;
+}
+
+.orbit-ring {
+  fill: none;
+  stroke: rgba(234, 240, 248, 0.32);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  vector-effect: non-scaling-stroke;
+}
+
+.route-ahead {
+  fill: none;
+  stroke: rgba(234, 240, 248, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 2 9;
+  stroke-linecap: round;
+}
+
+.route-trail {
+  fill: none;
+  stroke: var(--foil);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.75;
+}
+
+.craft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 92px;
+  height: 51px;
+  will-change: transform;
+  filter: drop-shadow(0 0 12px rgba(244, 180, 60, 0.4));
+}
+
+.craft.is-behind {
+  z-index: 1;
+}
+
+.craft svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.sat-body {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.sat-panel {
+  fill: var(--foil);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.sat-panel-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 0.8;
+  opacity: 0.5;
+}
+
+.sat-antenna {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+
+.sat-dish {
+  fill: var(--paper);
+}
+
+.sat-light {
+  fill: var(--foil);
+  stroke: var(--ink);
+  stroke-width: 1;
+  animation: sat-blink 2.6s steps(1, end) infinite;
+}
+
+@keyframes sat-blink {
+  0%, 82% { fill: var(--foil); }
+  83%, 100% { fill: var(--paper); }
+}
+
+/* Reduced motion: the satellite rests in orbit and leaves with the hero. */
+.flight.is-still .craft {
+  filter: none;
+}
+
+@media (max-width: 759px) {
+  .craft {
+    width: 48px;
+    height: 27px;
+  }
+}

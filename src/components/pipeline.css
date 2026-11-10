@@ -1,0 +1,100 @@
+.pipeline {
+  display: grid;
+  gap: 28px 32px;
+  padding: clamp(20px, 3vw, 36px);
+}
+
+.pipeline[data-lanes='2'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.lane-label {
+  margin-bottom: 18px;
+  color: var(--haze);
+  font-size: var(--step--1);
+  font-weight: 550;
+}
+
+.lane-track {
+  position: relative;
+}
+
+/* The spine every request travels along. */
+.lane-spine {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 6px;
+  width: 1px;
+  background: var(--paper);
+  opacity: 0.55;
+  transform-origin: top center;
+}
+
+.lane-packet {
+  position: absolute;
+  top: 8px;
+  left: 2px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--foil);
+  box-shadow: 0 0 0 4px var(--foil-soft), 0 0 14px var(--foil);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.lane-steps {
+  display: grid;
+  gap: 18px;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding-left: 30px;
+}
+
+.step-node {
+  position: absolute;
+  top: 6px;
+  left: 1px;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--paper);
+  border-radius: 50%;
+  background: var(--foil);
+}
+
+.step-title {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.step-note {
+  color: var(--haze);
+  font-size: var(--step--1);
+  line-height: 1.45;
+}
+
+.step-branches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.step-branches li {
+  padding: 4px 9px;
+  border-radius: 3px;
+  background: var(--ink-raised);
+  color: var(--haze);
+  font-size: var(--step--1);
+}
+
+@media (max-width: 599px) {
+  .pipeline[data-lanes='2'] {
+    grid-template-columns: 1fr;
+  }
+}

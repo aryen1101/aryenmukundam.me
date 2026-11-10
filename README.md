@@ -1,4 +1,4 @@
-﻿# Aryen Mukundam — Software Developer
+# Aryen Mukundam — Software Developer
 
 > Thoughtful products. Reliable systems. Interfaces that make complex work feel clear.
 
@@ -6,19 +6,20 @@
 [![GitHub](https://img.shields.io/badge/GitHub-aryen1101-181717?style=for-the-badge&logo=github)](https://github.com/aryen1101)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/aryen-mukundam-298b4a315/)
 
-A personal portfolio for **Aryen Mukundam**, a software developer in India. The site brings together selected projects, experience, technical interests, and ways to get in touch, wrapped in a dark, space-inspired visual story.
+A personal portfolio for **Aryen Mukundam**, a software engineering student in Bengaluru. The site is designed as a ground station: a satellite orbits the name in the hero, then flies a route through every section, lighting each section's waypoint as it passes.
 
 ## ✦ What’s inside
 
-- Responsive portfolio with About, Skills, Projects, Experience, and Contact sections
-- Scroll based motion and smooth scrolling, with reduced-motion support
-- Latest public GitHub repositories, loaded dynamically
+- Hero, About, Selected work, Stack, Experience, Education, Practice and Contact sections
+- Case studies for PRHawk, NotebookLLM, Search Typeahead and Bricks, each with an animated architecture diagram
+- A stack table that can be narrowed to the skills and languages of one project
+- Scroll-driven satellite flight (GSAP + Lenis) with a full reduced-motion fallback
+- Recent GitHub activity fetched live in the browser, with a build-time snapshot as fallback
 - Downloadable résumé
-- Vite development setup and a lightweight Node server for production builds
 
 ## Built with
 
-`React` · `Vite` · `JavaScript` · `GSAP` · `ScrollTrigger` · `Lenis` · `Lucide React` · `Node.js`
+`React` · `Vite` · `JavaScript` · `GSAP` · `ScrollTrigger` · `Lenis` · `Lucide React` · `Bricolage Grotesque` · `Node.js`
 
 ## Run locally
 
@@ -31,7 +32,9 @@ npm install
 npm run dev
 ```
 
-Vite prints the local development URL in the terminal. The development server proxies the GitHub repository request through its own API path.
+Vite prints the local development URL in the terminal.
+
+Recent GitHub activity is fetched live from GitHub's public API in each visitor's browser (cached for 10 minutes per session). Until it arrives, or if GitHub is unreachable, the page shows the snapshot in `src/data/github.json`, which `npm run sync` refreshes and every build updates automatically.
 
 ## Production
 
@@ -58,11 +61,15 @@ The server listens on port `3000` by default. Set `PORT` to choose another port.
 ## Project map
 
 ```text
-src/                 React application and styles
-public/resume.pdf    Résumé served by the portfolio
-image.jpeg           Portrait used in the hero section
-server.js            Production static and GitHub API server
-dist/                Generated production build (created by npm run build)
+src/data/            All site content: profile, projects, skills, experience, practice
+src/sections/        One component and stylesheet per page section
+src/components/      Nav, section heading with waypoint, project plate, pipeline diagram
+src/motion/          GSAP setup, Lenis smooth scroll, satellite flight system
+src/styles/          Design tokens and base styles
+src/assets/          Portrait and project screenshots (WebP)
+scripts/             Build-time GitHub snapshot
+public/              Résumé, favicon and social preview image
+server.js            Optional production static server
 ```
 
 ## Connect

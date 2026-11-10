@@ -1,0 +1,49 @@
+/*
+  Ground Station design tokens.
+  Cyanotype blueprint blue as the field, paper-white linework, and one accent:
+  the gold of a satellite's Kapton foil. Foil marks only live state, the
+  satellite's trail and the primary action.
+*/
+:root {
+  color-scheme: dark;
+
+  /* Field */
+  --ink: #0b1c3b;
+  --ink-raised: #10264b;
+  --ink-sunk: #081630;
+  --rule: #24446f;
+  --grid: rgba(150, 184, 235, 0.065);
+
+  /* Linework and text */
+  --paper: #eaf0f8;
+  --haze: #a3b6d4;
+  --dim: #7a91b5;
+
+  /* Accent */
+  --foil: #f4b43c;
+  --foil-soft: rgba(244, 180, 60, 0.16);
+  --on-foil: #0b1c3b;
+
+  /* Type */
+  --font: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+
+  --step--1: 0.875rem;  /* 14 */
+  --step-0: 1.0625rem;  /* 17 body */
+  --step-1: 1.3125rem;  /* 21 */
+  --step-2: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
+  --step-3: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+  --step-4: clamp(2.75rem, 1.6rem + 5vw, 6rem);
+  --step-5: clamp(3rem, 1.4rem + 7.4vw, 8rem);
+  --step-hero: clamp(4.5rem, 0.6rem + 12.6vw, 13rem);
+
+  /* Space and layout */
+  --gutter: clamp(20px, 5vw, 64px);
+  --max: 1280px;
+  --section: clamp(96px, 14vw, 200px);
+  --nav-h: 68px;
+  --radius: 6px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}

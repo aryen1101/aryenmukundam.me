@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-11-10T15:00:51.068Z",
+  "publicRepos": 56,
+  "recent": [
+    {
+      "name": "Persona_Based_AIChatbot",
+      "url": "https://github.com/aryen1101/Persona_Based_AIChatbot",
+      "description": null,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-10T14:12:13Z"
+    },
+    {
+      "name": "PRHawk",
+      "url": "https://github.com/aryen1101/PRHawk",
+      "description": "🦅 AI-powered GitHub PR reviewer — paste a pull request URL to get inline comments, a quality score, and a merge recommendation posted   ▎ back to GitHub. Learns each team's coding conventions from merged PR history. React + Express + better-auth.",
+      "language": "TypeScript",
+      "pushedAt": "2026-11-08T12:00:21Z"
+    },
+    {
+      "name": "Leetcode_Practise",
+      "url": "https://github.com/aryen1101/Leetcode_Practise",
+      "description": "A collection of LeetCode solutions in Java, organized by topic and difficulty with clear explanations and complexity analysis to accelerate interview preparation.",
+      "language": "Java",
+      "pushedAt": "2026-11-08T08:17:31Z"
+    },
+    {
+      "name": "Website_Automation_Agent",
+      "url": "https://github.com/aryen1101/Website_Automation_Agent",
+      "description": "LLM-powered browser automation agent. Give it a URL and a goal in plain English; it drives Chromium and streams every step to a live  React UI.",
+      "language": "JavaScript",
+      "pushedAt": "2026-11-07T14:39:01Z"
+    },
+    {
+      "name": "Notebook_LLM",
+      "url": "https://github.com/aryen1101/Notebook_LLM",
+      "description": "Chat with your documents — an advanced RAG app with multilingual queries, query rewriting, sub-query decomposition, and an LLM-as-judge that verifies every answer. Built with React, Node/Express, Groq, Gemini, HuggingFace embeddings & Qdrant.",
+      "language": "JavaScript",
+      "pushedAt": "2026-11-07T08:48:16Z"
+    },
+    {
+      "name": "aryenmukundam.me",
+      "url": "https://github.com/aryen1101/aryenmukundam.me",
+      "description": null,
+      "language": "JavaScript",
+      "pushedAt": "2026-11-06T17:38:33Z"
+    }
+  ]
+}
