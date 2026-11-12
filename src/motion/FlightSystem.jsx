@@ -42,8 +42,10 @@ function curveThrough(points) {
     const p1 = points[i];
     const p2 = points[i + 1];
     const p3 = points[i + 2] || p2;
-    const c1 = { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 };
-    const c2 = { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 };
+    // A point marked `v` leaves and arrives vertically, with handles sized to its own
+    // segment, so the curve never overshoots sideways or doubles back in y.
+    const c1 = p1.v ? { x: p1.x, y: p1.y + (p2.y - p1.y) / 3 } : { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 };
+    const c2 = p2.v ? { x: p2.x, y: p2.y - (p2.y - p1.y) / 3 } : { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 };
     segments.push([p1, c1, c2, p2]);
     d += ` C${c1.x.toFixed(1)} ${c1.y.toFixed(1)} ${c2.x.toFixed(1)} ${c2.y.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
   }
@@ -184,27 +186,34 @@ export default function FlightSystem() {
       s.orbit = {
         cx: a.x + a.w * (mobile ? 0.04 : 0.1),
         cy: a.y,
-        rx: Math.min(a.w * (mobile ? 0.62 : 0.68), w * 0.47),
+        rx: 0,
         ry: Math.max(a.h * 0.6, 60),
       };
+      // Keep the whole orbit on screen instead of clipping it at the page edge.
+      s.orbit.rx = Math.min(a.w * (mobile ? 0.62 : 0.68), w * 0.47, s.orbit.cx - 12, w - s.orbit.cx - 12);
       ring.setAttribute('cx', s.orbit.cx);
       ring.setAttribute('cy', s.orbit.cy);
       ring.setAttribute('rx', s.orbit.rx);
       ring.setAttribute('ry', s.orbit.ry);
       s.heroH = hero.offsetHeight;
 
-      // Route: hero exit → waypoint → swing to the far margin → next waypoint …
+      // Route: a full-width zigzag, as in the original site. From the hero it dives
+      // from the right margin to the first waypoint (left), then between each pair of
+      // waypoints it sweeps diagonally out to the right margin and back to the left.
+      // Each turn sits midway between waypoints, so every diagonal is spread over
+      // half a section of scrolling rather than crossed in one tick.
       const wrap = main.querySelector('.wrap');
       const margin = wrap ? (w - wrap.clientWidth) / 2 : 24;
-      const nearX = mobile ? Math.max(8, margin * 0.4) : null;
-      const farX = mobile ? Math.max(14, margin * 0.75) : w - margin * 0.5;
+      const farX = w - Math.max(margin * 0.5, 14);
       const els = [...main.querySelectorAll('[data-waypoint]')];
-      const points = [{ x: mobile ? farX : w - margin * 0.5, y: s.heroH * 0.86 }];
       const wps = els.map((el) => ({ el, id: el.dataset.waypoint, ...rel(el) }));
+      // `v` points leave and arrive vertically, which turns each leg into a smooth
+      // S-curve that never doubles back in y.
+      const points = [{ x: farX, y: s.heroH * 0.86, v: true }];
       wps.forEach((wp, i) => {
-        points.push({ x: mobile ? nearX : wp.x, y: wp.y });
+        points.push({ x: wp.x, y: wp.y, v: true });
         const next = wps[i + 1];
-        if (next) points.push({ x: farX, y: (wp.y + next.y) / 2 });
+        if (next) points.push({ x: farX, y: (wp.y + next.y) / 2, v: true });
       });
       if (points.length < 2) return;
 
@@ -278,6 +287,9 @@ export default function FlightSystem() {
       const scale = lerp(0.84 + 0.16 * depth, 1, e);
 
       craft.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%) rotate(${deg.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+      // In the hero it passes behind the name on the far side of the orbit. Once it
+      // leaves the hero it flies over the page, as in the original design; the route
+      // line itself stays under the section content.
       const behind = e < 0.5 && depth < 0;
       if (behind !== s.behind) {
         craft.classList.toggle('is-behind', behind);

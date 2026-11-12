@@ -1,5 +1,6 @@
 import OutLink from './OutLink.jsx';
 import Pipeline from './Pipeline.jsx';
+import ProjectGallery from './ProjectGallery.jsx';
 import './plate.css';
 
 export default function ProjectPlate({ project, flip }) {
@@ -45,6 +46,7 @@ export default function ProjectPlate({ project, flip }) {
             {links.video ? <OutLink href={links.video}>Demo video</OutLink> : null}
             {links.source ? <OutLink href={links.source}>Source code</OutLink> : null}
           </div>
+          {project.status ? <p className="plate-status">{project.status}</p> : null}
         </div>
 
         <div className="plate-media">
@@ -52,7 +54,9 @@ export default function ProjectPlate({ project, flip }) {
             <p className="plate-media-label">How it works</p>
             <Pipeline lanes={project.pipeline} label={`${project.name} architecture`} />
           </div>
-          {project.shot ? (
+          {project.media ? (
+            <ProjectGallery media={project.media} name={project.name} />
+          ) : project.shot ? (
             <figure className="plate-shot">
               <img src={project.shot.src} alt={project.shot.alt} width="1200" height="750" loading="lazy" decoding="async" />
             </figure>

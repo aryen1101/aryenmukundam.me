@@ -6,7 +6,28 @@ import { fileURLToPath } from 'node:url';
 const port = process.env.PORT || 3000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.join(__dirname, 'dist');
-const mimeTypes = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.pdf': 'application/pdf', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.ico': 'image/x-icon', '.woff': 'font/woff', '.woff2': 'font/woff2' };
+const mimeTypes = { '.css': 'text/css', '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.pdf': 'application/pdf', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.ico': 'image/x-icon', '.woff': 'font/woff', '.woff2': 'font/woff2', '.webm': 'video/webm', '.mp4': 'video/mp4' };
+
+// Videos are streamed with Range support so browsers can seek.
+const serveVideo = (req, res, filePath) => {
+  const { size } = fs.statSync(filePath);
+  const type = mimeTypes[path.extname(filePath)];
+  const match = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+  if (!match) {
+    res.writeHead(200, { 'Content-Type': type, 'Content-Length': size, 'Accept-Ranges': 'bytes' });
+    return fs.createReadStream(filePath).pipe(res);
+  }
+  let start = match[1] === '' ? size - Number(match[2]) : Number(match[1]);
+  let end = match[1] !== '' && match[2] !== '' ? Number(match[2]) : size - 1;
+  start = Math.max(0, start);
+  end = Math.min(end, size - 1);
+  if (start > end) {
+    res.writeHead(416, { 'Content-Range': `bytes */${size}` });
+    return res.end();
+  }
+  res.writeHead(206, { 'Content-Type': type, 'Content-Length': end - start + 1, 'Content-Range': `bytes ${start}-${end}/${size}`, 'Accept-Ranges': 'bytes' });
+  return fs.createReadStream(filePath, { start, end }).pipe(res);
+};
 
 const sendJson = (res, status, payload) => {
   res.writeHead(status, { 'Content-Type': 'application/json' });
@@ -38,7 +59,10 @@ const server = http.createServer(async (req, res) => {
   const safePath = path.normalize(requestedPath).replace(/^([.][.][\\/])+/, '');
   const filePath = path.join(distPath, safePath);
   if (!filePath.startsWith(distPath + path.sep)) return sendJson(res, 400, { error: 'Bad path' });
-  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) return serveFile(res, filePath);
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    if (/\.(webm|mp4)$/.test(filePath)) return serveVideo(req, res, filePath);
+    return serveFile(res, filePath);
+  }
   return serveFile(res, path.join(distPath, 'index.html'));
 });
 

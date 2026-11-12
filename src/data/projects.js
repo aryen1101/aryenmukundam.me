@@ -1,5 +1,7 @@
 import prhawkShot from '../assets/shots/prhawk.webp';
 import notebookShot from '../assets/shots/notebook.webp';
+import typeaheadPoster from '../assets/shots/typeahead/autocomplete.webp';
+import bricksPoster from '../assets/shots/bricks/dashboard.webp';
 
 // Every figure below comes from the résumé or the project's own repository.
 // A pipeline is a list of lanes; each lane is an ordered list of steps.
@@ -114,6 +116,7 @@ export const projects = [
       'A 3-node Redis ring with consistent hashing and 150 virtual nodes per node holds a 93.8% cache hit rate, with 60 s TTL invalidation.',
       'Batched Kafka write-behind cut database writes about 3.6×: 2,000 searches became 555 row updates.',
       'A recency-aware trending ranker decays scores by 0.9 so old spikes fade.',
+      'A dependency-free UI that draws the live hash ring, shows which node served each prefix (hit or miss, server time), and follows every search through Kafka until its new count lands in SQLite.',
     ],
     figures: [
       { value: '1.26 ms', label: 'p50 suggestion latency' },
@@ -121,6 +124,16 @@ export const projects = [
       { value: '~3.6×', label: 'fewer database writes' },
     ],
     stack: ['TypeScript', 'Node.js', 'Express', 'Redis', 'Apache Kafka', 'SQLite', 'nginx', 'Docker Compose'],
+    status: 'Not deployed: it runs locally on Docker Compose (3 Redis nodes, Kafka, API, nginx). The demo video is from a local run against the real dataset.',
+    media: {
+      video: {
+        src: '/assets/typeahead/searchtypeahead-demo.webm',
+        poster: typeaheadPoster,
+        alt: '38-second demo: typing prefixes, keyboard navigation, switching ranking, and recording searches',
+        caption: 'Typing routes each prefix around the hash ring; a search is followed until its count changes in SQLite.',
+      },
+      shots: [],
+    },
     links: {
       source: 'https://github.com/aryen1101/Search_Typeahead',
       video: 'https://drive.google.com/file/d/1KxaegMsXSIbjEC45-4T06HSE5j6S_TzJ/view?usp=drive_link',
@@ -166,6 +179,15 @@ export const projects = [
       { value: '~2,000', label: 'students taught through Bricks' },
     ],
     stack: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT'],
+    media: {
+      video: {
+        src: '/assets/bricks/bricks-dashboard-demo.webm',
+        poster: bricksPoster,
+        alt: '81-second walkthrough of the student and teacher dashboards: joining a live class, materials, submitting an assignment, the leaderboard, scheduling a class, sharing a recording, batch rosters and submissions',
+        caption: 'A student joins a live class, submits an assignment and checks the leaderboard; a teacher schedules a class, shares a recording and reviews submissions. Recorded locally with seeded test accounts.',
+      },
+      shots: [],
+    },
     links: { source: 'https://github.com/aryen1101/Bricks' },
     pipeline: [
       {

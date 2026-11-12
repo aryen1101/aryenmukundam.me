@@ -111,9 +111,17 @@
   filter: none;
 }
 
+/* Narrower desktops have a narrower margin for the satellite to fly down. */
+@media (min-width: 760px) and (max-width: 1099px) {
+  .craft {
+    width: 66px;
+    height: 37px;
+  }
+}
+
 @media (max-width: 759px) {
   .craft {
-    width: 48px;
-    height: 27px;
+    width: 34px;
+    height: 19px;
   }
 }
